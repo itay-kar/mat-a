@@ -6,6 +6,7 @@ using namespace ariel;
 #include <string>
 #include <stdexcept>
 #include <iostream>
+#include <vector>
 using namespace std;
 
 string ariel::mat(int col, int row, char a, char b)
@@ -13,112 +14,99 @@ string ariel::mat(int col, int row, char a, char b)
     if (col < 0 || row < 0)
     {
         throw invalid_argument("row and col size must be positive");
+        return "";
     }
 
     if (col % 2 == 0 || row % 2 == 0)
     {
         throw invalid_argument("row and col size must be odd");
+        return "";
     }
 
-    // char sym;
-    // char matrix[col][row];
-    string mat = "";
-    // int mid_col = (col / 2);
-    // int mid_row = (row / 2);
-    // int square = 0;
-    // int dir = 1;
-    // int i = 0, j = 0;
+    string mat = "\n";
+    string temp;
+    int mid = (row / 2) + 1;
+    std::vector<string> temp_array;
+    int i = 0;
+    int sym = 0;
 
-    // while (i != mid_row || j != mid_col)
-    // {
-    //     if (square % 2 == 0)
-    //     {
-    //         sym = a;
-    //     }
+    /// init row
+    for (size_t i = 0; i < col; i++)
+    {
+        temp += a;
+    }
 
-    //     else
-    //     {
-    //         sym = b;
-    //     }
+    i = 0;
 
-    //     switch (dir)
-    //     {
-    //     case 1: // right
-    //         if (j < col - square -1)
-    //         {
-    //             matrix[i][j] = sym;
-    //             j++;
-    //             break;
-    //         }
-    //         else
-    //         {
-    //             dir = 2;
-    //             break;
-    //         }
+    while (i < mid)
+    {
+        // cout << i << "temp = " << temp << '\n'
+        //      << endl;
+        for (int j = i; j < col - i; j++)
+        {
+            if (sym % 2 == 0)
+            {
+                temp.at(j) = a;
+            }
+            else
+            {
+                temp.at(j) = b;
+            }
+        }
+        // cout << i << "temp after = " << temp << '\n'
+        //      << endl;
+        temp_array.push_back(temp);
+        i++;
+        sym += 1;
+    }
 
-    //     case 2: // down
-    //         matrix[i][j] = sym;
-    //         if (i < row - square -1)
-    //         {
-    //             i++;
-    //             break;
-    //         }
-    //         else
-    //         {
-    //             dir = 3;
-    //             break;
-    //         }
-    //     case 3: // left
-    //         matrix[i][j] = sym;
-    //         if (j > 0 + square)
-    //         {
-    //             j--;
-    //             break;
-    //         }
-    //         else
-    //         {
-    //             dir = 4;
-    //             break;
-    //         }
-    //     case 4: // up
-    //         matrix[i][j] = sym;
-    //         if (i > 0 + square)
-    //         {
-    //             i--;
-    //             break;
-    //         }
-    //         else
-    //         {
-    //             dir = 1;
-    //             square += 1;
-    //             i++;
-    //             j++;
-    //             break;
-    //         }
-    //         break;
-
-    //     default:
-    //         break;
-    //     }
-    // }
     
-    
-    // for (size_t i = 0; i < row; i++)
-    // {
-    //     for (size_t j = 0; j < col; j++)
-    //     {
-    //         mat+=matrix[i][j];
-    //     }
-    //     mat+='\n';
-    // }
-    
+    i = 0;
+    int next = 1;
+    while (true)
+    {
+        if (i == -1)
+        {
+            break;
+        }
+
+        mat += temp_array[i];
+        mat += '\n';
+        if (i == mid - 1)
+        {
+            next = -1;
+        }
+        i += next;
+    }
+
     return mat;
-};
+}
 
-
-// int main(int argc, char const *argv[]) 
+// int main(int argc, char const *argv[])
 // {
-//     string check = mat(3,3,'a','b');
-//     std::cout << check << std::endl;
+
+//     std::cout << "Printing Mat 13/5: \n\n"
+//               << mat(5,13,'@','-') << std::endl;
+
+//     string check = mat(13, 5,'@','-');
+//     std::cout << "Printing Mat 5/7: \n\n"
+//               << check << std::endl;
+
+//     check = mat(7, 5, 'a', 'b');
+//     std::cout << "Printing Mat 7/5: \n\n"
+//               << check << std::endl;
+
+//     check = mat(5, 5, 'a', 'b');
+//     std::cout << "Printing Mat 5/5: \n\n"
+//               << check << std::endl;
+
+//     check = mat(5, 3, 'a', 'b');
+//     std::cout << "Printing Mat 5/3: \n\n"
+//               << check << std::endl;
+
+//     check = mat(99, 99, '@', '#');
+//     std::cout << "Printing Mat 3/5: \n\n"
+//               << check << std::endl;
+
 //     return 0;
 // }

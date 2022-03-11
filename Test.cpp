@@ -42,7 +42,7 @@ CHECK(mat(3,1,'D',':') == "\nDDD\n");
 
 
 // Checking equals on vary inputs 
-CHECK_EQ(mat(3,3,'%','!'),"\n%%%\n%!%\n%%%");
+CHECK_EQ(mat(3,3,'%','!'),"\n%%%\n%!%\n%%%\n");
 CHECK_EQ(mat(3,1,'%','!'),mat(3,1,'%','@'));
 CHECK_EQ(mat(1,3,'%','!'),mat(1,3,'%','@'));
 
